@@ -8,8 +8,14 @@ Install kubectl: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kub
 
 ------------------------------------------------------------------------
 -------------------------------------In Cloud9 Terminal Install terraform----------------------------------------------
-Download terraform: wget https://releases.hashicorp.com/terraform/0.15.1/terraform_0.15.1_linux_amd64.zip
+# Download the latest Terraform binary
+wget https://releases.hashicorp.com/terraform/$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')/terraform_$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')_linux_amd64.zip
 
-Unzip terraform binaries: unzip terraform_0.15.1_linux_amd64.zip
+# Unzip the downloaded file
+unzip terraform_$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')_linux_amd64.zip
 
-Add terraform to /usr/local/bin: sudo mv terraform /usr/local/bin
+# Move the binary to a directory in your PATH
+sudo mv terraform /usr/local/bin/
+
+# Verify the installation
+terraform --version
